@@ -4,17 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import Model.List;
+
 import com.example.aone.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
-    TextView date;
-    Button fabButton;
+    FloatingActionButton fabButton;
+    Vector<List> sampleList = new Vector<List>(5);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,41 @@ public class MainActivity extends AppCompatActivity {
 
     void linkId() {
         listView = (ListView) findViewById(R.id.content_view);
-        date = (TextView) findViewById(R.id.date);
-        fabButton = (Button) findViewById(R.id.fab);
+        fabButton = (FloatingActionButton) findViewById(R.id.fab);
+        //For testing purposes
+        List temp = new List();
+        sampleList.addElement(temp);
+        MyAdapter adapter = new MyAdapter();
+        listView.setAdapter(adapter);
+    }
+
+    private class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return sampleList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup container) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.activity_listview, container, false);
+            }
+            TextView name = (TextView) convertView.findViewById(R.id.element);
+            name.setText(sampleList.elementAt(position).getActivityName());
+            return convertView;
+        }
     }
 }
+
+

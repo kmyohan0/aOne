@@ -11,7 +11,7 @@ public class List {
     public List() {
         currentDate = null;
         dueDate = null;
-        ActivityName = null;
+        ActivityName = "Test is working!";
     }
 
     public List(Date CurrentDate, String ActivityName) {
