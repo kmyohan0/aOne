@@ -1,24 +1,27 @@
 package com.example.aone.Presenter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import Model.List;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aone.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Vector;
 
+import Model.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    //Test
+    TextView text_test;
 
     ListView listView;
     FloatingActionButton fabButton;
@@ -28,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        text_test = (TextView)findViewById(R.id.text_test);
+
         linkId();
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,9 +43,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK) // 액티비티가 정상적으로 종료되었을 경우
+        {
+            if(requestCode==1) // requestCode==1 로 호출한 경우에만 처리
+            {
+                Intent intent = getIntent();
+                String title = intent.getExtras().getString("title1");
+                text_test.setText(title);
+            }
+        }
+    }
+
     void openEditIntent() {
         Intent intent = new Intent(this, EditActivity.class);
-        startActivity(intent);
+
+        if(sampleList.size()>0) //If schedule data is already formed
+        {
+            intent.putExtra("title","Test Title");
+        }
+
+        startActivityForResult(intent,1);
+        Log.d("tag","TEST");
     }
 
     void linkId() {
