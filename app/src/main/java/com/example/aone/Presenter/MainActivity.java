@@ -2,6 +2,7 @@ package com.example.aone.Presenter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,14 @@ public class MainActivity extends AppCompatActivity {
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Intent / Fragment open to have Time Picker add date etc etc.
+                openEditIntent();
             }
         });
+    }
+
+    void openEditIntent() {
+        Intent intent = new Intent(this, EditActivity.class);
+        startActivity(intent);
     }
 
     void linkId() {
