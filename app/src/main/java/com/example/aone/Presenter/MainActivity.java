@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 convertView = getLayoutInflater().inflate(R.layout.activity_listview, container, false);
             }
             TextView name = (TextView) convertView.findViewById(R.id.element);
+            //LEGENO
             name.setText(ideas.getIdea().get("array")[0].getActivityName());
             return convertView;
         }
