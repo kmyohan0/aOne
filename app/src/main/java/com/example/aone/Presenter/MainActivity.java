@@ -13,19 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aone.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
-import java.util.Vector;
-
+import Model.Idea;
 import Model.List;
+import Model.Util;
 
 public class MainActivity extends AppCompatActivity {
 
     //Test
     TextView text_test;
-
     ListView listView;
     FloatingActionButton fabButton;
-    Vector<List> sampleList = new Vector<List>(5);
+    Util util = new Util();
+    String jsonFileString = "";
+    Gson gson = new Gson();
+    Idea ideas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     void openEditIntent() {
         Intent intent = new Intent(this, EditActivity.class);
-
-        if(sampleList.size()>0) //If schedule data is already formed
-        {
-            intent.putExtra("title","Test Title");
-        }
-
+        //TODO: 고쳐서 JSON 이랑 호환되게 바꾸기
         startActivityForResult(intent,1);
         Log.d("tag","TEST");
     }
@@ -71,18 +69,20 @@ public class MainActivity extends AppCompatActivity {
     void linkId() {
         listView = (ListView) findViewById(R.id.content_view);
         fabButton = (FloatingActionButton) findViewById(R.id.fab);
+        jsonFileString = util.getJsonFromAssets(getApplicationContext(), "lists.json");
+        //WARNING: idea is NULL
+        ideas = gson.fromJson(jsonFileString, Idea.class);
         //For testing purposes
-        List temp = new List();
-        sampleList.addElement(temp);
         MyAdapter adapter = new MyAdapter();
         listView.setAdapter(adapter);
-    }
 
+    }
+//TODO: MyAdapter 도 호환되게 바꾸기
     private class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return sampleList.size();
+            return 0;
         }
 
         @Override
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 convertView = getLayoutInflater().inflate(R.layout.activity_listview, container, false);
             }
             TextView name = (TextView) convertView.findViewById(R.id.element);
-            name.setText(sampleList.elementAt(position).getActivityName());
+            name.setText(ideas.getLists().get("array").getActivityName());
             return convertView;
         }
     }
