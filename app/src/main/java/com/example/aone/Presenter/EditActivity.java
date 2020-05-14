@@ -14,6 +14,8 @@ import com.example.aone.R;
 
 public class EditActivity extends AppCompatActivity {
 
+    public EditText title_edit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,23 +25,25 @@ public class EditActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final EditText title_edit = (EditText)findViewById(R.id.title_edit);
+        title_edit = (EditText)findViewById(R.id.title_edit);
         Button submit_edit = (Button)findViewById(R.id.submit_edit);
         submit_edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getApplicationContext(), MainActivity.class);
-
-                //보낼 데이터
-                intent.putExtra("title",title_edit.getText());
-                setResult(RESULT_OK,intent);
-                finish();
+                finishIntnet();
             }
         });
-
         Intent intent = getIntent();
-        String title = intent.getExtras().getString("title1");
+        String title = "" + intent.getExtras().getString("title");
         title_edit.setText(title);
+    }
+
+    void finishIntnet() {
+        Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+        //보낼 데이터
+        intent.putExtra("title",title_edit.getText());
+        setResult(RESULT_OK,intent);
+        finish();
     }
 
     @Override

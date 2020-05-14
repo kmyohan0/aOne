@@ -50,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         {
             if(requestCode==1) // requestCode==1 로 호출한 경우에만 처리
             {
-                Intent intent = getIntent();
-                String title = intent.getExtras().getString("title1");
+                String title = data.getExtras().getString("title");
                 text_test.setText(title);
             }
         }
