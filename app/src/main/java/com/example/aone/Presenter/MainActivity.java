@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.content_view);
         fabButton = (FloatingActionButton) findViewById(R.id.fab);
         jsonFileString = getJsonFromAssets(getApplicationContext());
-        Log.d("JsonFileString", jsonFileString);
         //WARNING: idea is NULL
         ideas = gson.fromJson(jsonFileString, Idea.class);
+        Log.d("testing Idea Class", ideas.getIdea().get("array")[0].getActivityName());
         //For testing purposes
         MyAdapter adapter = new MyAdapter();
         listView.setAdapter(adapter);
@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         String jsonString;
         try {
             InputStream is = getResources().openRawResource(R.raw.lists);
-            Log.d("File cannot be found", is.toString());
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 0;
+            return 1;
         }
 
         @Override
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 convertView = getLayoutInflater().inflate(R.layout.activity_listview, container, false);
             }
             TextView name = (TextView) convertView.findViewById(R.id.element);
-            name.setText(ideas.getLists().get("array").getActivityName());
+            name.setText(ideas.getIdea().get("array")[0].getActivityName());
             return convertView;
         }
     }

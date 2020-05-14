@@ -5,17 +5,17 @@ import java.util.Map;
 import Model.List;
 
 public class Idea {
-    Map<String, List> lists;
+    Map<String, List[]> idea;
 
-    public Idea(Map<String, List> lists) {
-        this.lists = lists;
+    public Idea(Map<String, List[]> idea) {
+        this.idea = idea;
     }
 
-    public Map<String, List> getLists() {
-        return lists;
+    public Map<String, List[]> getIdea() {
+        return idea;
     }
 
-    public void setLists(Map<String, List> lists) {
-        this.lists = lists;
+    public void setIdea(Map<String, List[]> idea) {
+        this.idea = idea;
     }
 }

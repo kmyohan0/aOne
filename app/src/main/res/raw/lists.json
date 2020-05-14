@@ -2,58 +2,18 @@
   "idea" : {
     "array" : [
       {
-        "Activity Name" : "Test",
+        "ActivityName" : "Test",
         "Date" : "",
-        "Start Time" : "",
-        "End Time" : "",
+        "StartTime" : "",
+        "EndTime" : "",
         "Description" : "",
         "Category" : ""
       },
       {
-        "Activity Name" : "",
+        "ActivityName" : "",
         "Date" : "",
-        "Start Time" : "",
-        "End Time" : "",
-        "Description" : "",
-        "Category" : ""
-      }
-    ]
-  },
-  "Due Today" : {
-  "array" : [
-    {
-      "Activity Name" : "",
-      "Date" : "",
-      "Start Time" : "",
-      "End Time" : "",
-      "Description" : "",
-      "Category" : ""
-    },
-    {
-      "Activity Name" : "",
-      "Date" : "",
-      "Start Time" : "",
-      "End Time" : "",
-      "Description" : "",
-      "Category" : ""
-    }
-  ]
-},
-  "Done" : {
-    "array" : [
-      {
-        "Activity Name" : "",
-        "Date" : "",
-        "Start Date" : "",
-        "End Time" : "",
-        "Description" : "",
-        "Category" : ""
-      },
-      {
-        "Activity Name" : "",
-        "Date" : "",
-        "Start Time" : "",
-        "End Time" : "",
+        "StartTime" : "",
+        "EndTime" : "",
         "Description" : "",
         "Category" : ""
       }
