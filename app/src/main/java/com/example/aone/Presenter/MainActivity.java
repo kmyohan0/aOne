@@ -1,5 +1,6 @@
 package com.example.aone.Presenter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,9 +16,10 @@ import com.example.aone.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import Model.Idea;
-import Model.List;
-import Model.Util;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     TextView text_test;
     ListView listView;
     FloatingActionButton fabButton;
-    Util util = new Util();
     String jsonFileString = "";
     Gson gson = new Gson();
     Idea ideas;
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
     void linkId() {
         listView = (ListView) findViewById(R.id.content_view);
         fabButton = (FloatingActionButton) findViewById(R.id.fab);
-        jsonFileString = util.getJsonFromAssets(getApplicationContext(), "lists.json");
+        jsonFileString = getJsonFromAssets(getApplicationContext());
+        Log.d("JsonFileString", jsonFileString);
         //WARNING: idea is NULL
         ideas = gson.fromJson(jsonFileString, Idea.class);
         //For testing purposes
@@ -77,6 +79,26 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
     }
+
+    String getJsonFromAssets(Context context) {
+        String jsonString;
+        try {
+            InputStream is = getResources().openRawResource(R.raw.lists);
+            Log.d("File cannot be found", is.toString());
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            jsonString = new String(buffer, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return jsonString;
+    }
+
 //TODO: MyAdapter 도 호환되게 바꾸기
     private class MyAdapter extends BaseAdapter {
 
