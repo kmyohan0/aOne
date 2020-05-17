@@ -2,18 +2,14 @@
   "idea" : {
     "array" : [
       {
-        "ActivityName" : "Test",
-        "Date" : "",
-        "StartTime" : "",
-        "EndTime" : "",
+        "ActivityName" : "Item numba 1",
+        "Date" : "5/14/2020",
         "Description" : "",
         "Category" : ""
       },
       {
-        "ActivityName" : "",
-        "Date" : "",
-        "StartTime" : "",
-        "EndTime" : "",
+        "ActivityName" : "Item numba 2",
+        "Date" : "5/14/2020",
         "Description" : "",
         "Category" : ""
       }

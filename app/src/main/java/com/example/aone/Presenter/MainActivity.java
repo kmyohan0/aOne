@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,8 +19,12 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import Model.Idea;
+import Model.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,10 +44,21 @@ public class MainActivity extends AppCompatActivity {
         text_test = (TextView)findViewById(R.id.text_test);
 
         linkId();
+        //For creating New Object
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openEditIntent();
+            }
+        });
+        //For editing existing object
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getBaseContext(), EditActivity.class);
+                intent.putExtra("Title", ideas.getIdea().get("array")[position].getActivityName());
+                intent.putExtra("Create", false);
+                startActivityForResult(intent, 0);
             }
         });
     }
@@ -62,9 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
     void openEditIntent() {
         Intent intent = new Intent(this, EditActivity.class);
-        //TODO: 고쳐서 JSON 이랑 호환되게 바꾸기
+        intent.putExtra("Create", true);
         startActivityForResult(intent,1);
-        Log.d("tag","TEST");
     }
 
     void linkId() {
@@ -73,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
         jsonFileString = getJsonFromAssets(getApplicationContext());
         //WARNING: idea is NULL
         ideas = gson.fromJson(jsonFileString, Idea.class);
-        Log.d("testing Idea Class", ideas.getIdea().get("array")[0].getActivityName());
+        //DateFormat = getting current Time
+        String dateFormat = DateFormat.getDateInstance(DateFormat.SHORT).format(new Date());
         //For testing purposes
         MyAdapter adapter = new MyAdapter();
         listView.setAdapter(adapter);
 
     }
-
     String getJsonFromAssets(Context context) {
         String jsonString;
         try {
@@ -97,18 +112,16 @@ public class MainActivity extends AppCompatActivity {
 
         return jsonString;
     }
-
-//TODO: MyAdapter 도 호환되게 바꾸기
     private class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return 1;
+            return ideas.getIdea().get("array").length;
         }
 
         @Override
-        public Object getItem(int position) {
-            return null;
+        public List getItem(int position) {
+            return ideas.getIdea().get("array")[position];
         }
 
         @Override
@@ -121,9 +134,11 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.activity_listview, container, false);
             }
-            TextView name = (TextView) convertView.findViewById(R.id.element);
-            //LEGENO
-            name.setText(ideas.getIdea().get("array")[0].getActivityName());
+            TextView name = (TextView) convertView.findViewById(R.id.title);
+            name.setText(ideas.getIdea().get("array")[position].getActivityName());
+            TextView date = (TextView) convertView.findViewById(R.id.date);
+            date.setText(ideas.getIdea().get("array")[position].getDate());
+            //date.setText(ideas.getIdea().get("array")[0].getDate());
             return convertView;
         }
     }

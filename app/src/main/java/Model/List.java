@@ -3,34 +3,26 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class List {
-
-    private Date startTime, endTime, date;
     //private Category  category;
-    private String ActivityName, description;
+    private String ActivityName, description, Date;
 
     public List() {
-        startTime = null;
-        endTime = null;
-        date = null;
+        Date = null;
         ActivityName = "Test is working!";
         description = "Test description";
     }
 
-    public List(Date date, String ActivityName) {
-        this.date = date;
+    public List(String Date, String ActivityName) {
+        this.Date = Date;
         this.ActivityName = ActivityName;
     }
 
-    public List(Date startTime, Date endTime, String ActivityName) {
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public List(String ActivityName) {
         this.ActivityName = ActivityName;
     }
 
-    public List(Date startTime, Date endTime, Date date, String ActivityName, String description) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.date = date;
+    public List(String Date, String ActivityName, String description) {
+        this.Date = Date;
         this.ActivityName = ActivityName;
         this.description = description;
     }
@@ -44,28 +36,12 @@ public class List {
 
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public String getDate() {
+        return Date;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String Date) {
+        this.Date = Date;
     }
 
     public String getDescription() {
